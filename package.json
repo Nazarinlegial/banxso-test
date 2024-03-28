@@ -1,5 +1,6 @@
 {
-  "name": "client",
+  "name": "client Banxso Test Task",
+  "author": "Nazar Kovalchuk",
   "version": "0.1.0",
   "private": true,
   "scripts": {
