@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "ES2015"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,7 +18,10 @@
       }
     ],
     "paths": {
-      "@/config/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/config/*": ["./config/*"],
+      "@/db/*": ["./db/*"],
+      "@/server/*": ["./server/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

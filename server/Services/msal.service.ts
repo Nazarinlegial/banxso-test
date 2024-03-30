@@ -1,0 +1,6 @@
+
+
+class MsalClient {
+    constructor() {
+    }
+}
