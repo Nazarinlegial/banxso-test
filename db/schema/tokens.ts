@@ -1,14 +1,14 @@
 import {BaseCollection} from "./base";
 import {ObjectId} from "bson";
 
-export type ITokenDataObject = {
+export type ICipherDataObject = {
     expires?: Date | number | string,
-    token: string,
+    cipher_text: string,
     secret_id: ObjectId
 }
 
 export interface TokensCollection extends BaseCollection {
     user_id: ObjectId
-    ms_access: string
-    ms_refresh: ITokenDataObject
+    ms_access: ICipherDataObject
+    ms_account: ICipherDataObject
 }

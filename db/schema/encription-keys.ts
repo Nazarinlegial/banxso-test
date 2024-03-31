@@ -5,5 +5,4 @@ export interface EncryptionKeysCollection extends BaseCollection{
     iv?: string,
     tag?: string
     expires?:  number,
-
 }
