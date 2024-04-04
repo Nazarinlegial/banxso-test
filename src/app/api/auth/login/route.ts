@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
-import {adminController} from "@/backend/Controller";
+import {authController} from "@/backend/Controller";
 
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    return await adminController.login(req)
+    return await authController.login(req)
 }

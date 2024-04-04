@@ -1,4 +1,4 @@
-import {BaseCollection} from "./base";
+import {IBaseCollection} from "./base";
 import {ObjectId} from "bson";
 
 export type ICipherDataObject = {
@@ -7,8 +7,9 @@ export type ICipherDataObject = {
     secret_id: ObjectId
 }
 
-export interface TokensCollection extends BaseCollection {
+export interface AccountCollection extends IBaseCollection {
     user_id: ObjectId
-    ms_access: ICipherDataObject
+    user_account_id: string
+    ms_access_token: ICipherDataObject
     ms_account: ICipherDataObject
 }

@@ -1,7 +1,6 @@
-import {ObjectId} from "bson";
+import {Document} from "mongodb";
 
-export interface BaseCollection {
-    _id: ObjectId
-    created_at?: Date
-    update_at?: Date
+export interface IBaseCollection extends Document{
+    created_at?: Date | string
+    update_at?: Date | string
 }

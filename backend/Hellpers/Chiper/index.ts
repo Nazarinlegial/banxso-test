@@ -1,9 +1,9 @@
 import crypto from "node:crypto"
 
-export class Cipher {
+class Cipher {
     private __algorithm: crypto.CipherGCMTypes = "aes-256-gcm"
 
-    static generatedKey(size: number = 32) {
+    public generatedKey(size: number = 32) {
         return crypto.randomBytes(size).toString('base64')
     }
 
@@ -40,3 +40,5 @@ export class Cipher {
         return text
     }
 }
+
+export const cipherInstance = new Cipher()

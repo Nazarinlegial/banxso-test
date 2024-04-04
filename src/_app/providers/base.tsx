@@ -1,6 +1,7 @@
 import React, {FC} from "react";
 import {cn} from "@/shared/utils";
-import { Inter as FontSans } from "next/font/google"
+import {Inter as FontSans} from "next/font/google"
+import {AppProvider, IAppContext} from "@/_app/providers/context";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -9,16 +10,21 @@ const fontSans = FontSans({
 
 type BaseProviderProps = {
     children: React.ReactNode
+    state: IAppContext
 }
 
-export const BaseProvider:FC<BaseProviderProps> = function ({children}) {
+export const BaseProvider: FC<BaseProviderProps> = function ({children, state}) {
 
     return (
-        <main className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+        <AppProvider state={state}>
+
+
+            <main className={cn(
+                "min-h-screen bg-background font-sans antialiased",
                 fontSans.variable
-        )}>
-            {children}
-        </main>
+            )}>
+                {children}
+            </main>
+        </AppProvider>
     )
 }

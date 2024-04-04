@@ -10,3 +10,5 @@ type TMSALReqOption = {
 }
 
 export const msalClient = new msal.ConfidentialClientApplication(msalConfig)
+
+export const MS_SCOPES = ['User.read','Mail.read','Mail.send']

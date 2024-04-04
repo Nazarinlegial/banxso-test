@@ -1,9 +1,10 @@
-import {BaseCollection} from "./base";
+import {IBaseCollection} from "./base";
 import {ObjectId} from "bson";
 
-export interface RefreshTokenCollection extends BaseCollection {
+export interface RefreshTokenCollection extends IBaseCollection {
     token: string,
-    secret_id: ObjectId,
-    key_id: ObjectId
+    // secret_id: ObjectId,
+    // refresh_key_id: ObjectId
+    user_id: ObjectId
 }
 

@@ -1,11 +1,7 @@
-import {BaseCollection} from "./";
-import {ObjectId} from "bson";
+import {IBaseCollection} from "./";
+import {IProfileGraphResponse} from "@/backend/Common/Interface";
 
-export interface UserCollection extends BaseCollection {
-    name: string,
-    login?: string,
-    email?: string,
-    phone?: string,
-    age?: number,
-    role: ObjectId,
+export interface UserCollection extends IBaseCollection {
+    profile: IProfileGraphResponse
+    role: string,
 }

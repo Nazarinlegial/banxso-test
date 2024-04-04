@@ -1,9 +1,11 @@
-import {Db, MongoClient, MongoClientOptions, MongoOptions, ServerApiVersion} from "mongodb";
+import {Db, MongoClient} from "mongodb";
 import {mongoConfig} from "@/config/index"
 
 // if (!process.env.MONGODB_URI) {
 //     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 // }
+
+
 
 let client;
 let clientPromise: Promise<MongoClient>;

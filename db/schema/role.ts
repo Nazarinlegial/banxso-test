@@ -1,6 +1,6 @@
-import {BaseCollection} from "./base";
+import {IBaseCollection} from "./base";
 
-export interface RoleCollection extends BaseCollection {
+export interface RoleCollection extends IBaseCollection {
     name: string
     title: string
 }

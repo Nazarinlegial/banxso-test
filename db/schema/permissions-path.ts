@@ -1,6 +1,6 @@
-import {BaseCollection} from "./base";
+import {IBaseCollection} from "./base";
 
-export interface PermissionsPathCollection extends BaseCollection {
+export interface PermissionsPathCollection extends IBaseCollection {
     path: string,
     allowed_roles: string[]
     name?: string

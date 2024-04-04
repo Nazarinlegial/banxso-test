@@ -1,4 +1,4 @@
-import {loadEnv} from "@/server/Hellpers/Utils";
+import {loadEnv} from "@/backend/Hellpers/Utils/env";
 import msal from "@azure/msal-node";
 loadEnv()
 
