@@ -5,23 +5,22 @@ import {useRouter} from "next/navigation";
 import {IUserPayload} from "@/entity/user/types";
 
 
-export const useLogout = () => {
+export const useLogout = () => () => {
     const {updateState} = useAppContext()
     const {push} = useRouter()
 
-    return () => {
-        try {
-            client.get('/auth/logout')
-                .then(res => {
-                    removeHeaderToken()
-                    updateState({
-                        isAuth: false,
-                        user: {} as IUserPayload
-                    })
-                    push('/dashboard')
+    try {
+        client.get('/auth/logout')
+            .then(res => {
+                removeHeaderToken()
+                updateState({
+                    isAuth: false,
+                    user: {} as IUserPayload
                 })
-        } catch (e) {
-            console.log(e)
-        }
+                push('/dashboard')
+            })
+    } catch (e) {
+        console.log(e)
     }
+
 }
