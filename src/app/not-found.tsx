@@ -1,6 +1,16 @@
-import {redirect} from "next/navigation";
+'use client'
 
+import {useRouter} from "next/navigation";
+import {useAppContext} from "@/_app/providers";
+import {useEffect} from "react";
 
-export default async function NotFound() {
-    return redirect('/')
+export default function NotFound() {
+    const {isAuth} = useAppContext()
+    const {push} = useRouter()
+
+    useEffect(() => {
+        push('/dashboard')
+    }, []);
+
+    return <></>
 }
