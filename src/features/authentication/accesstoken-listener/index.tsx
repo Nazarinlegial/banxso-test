@@ -31,5 +31,5 @@ export const AccessTokenListener = () => {
     }, [search.toString()]);
 
 
-    return <></>
+    return null
 }
