@@ -8,7 +8,7 @@ import type {
   ToastProps,
 } from "@/shared/ui/components/ui/toast"
 
-const TOAST_LIMIT = 3
+const TOAST_LIMIT = 10
 const TOAST_REMOVE_DELAY = 1000000
 
 type ToasterToast = ToastProps & {
@@ -148,7 +148,7 @@ function toast({ ...props }: Toast) {
   const update = (props: ToasterToast) =>
     dispatch({
       type: "UPDATE_TOAST",
-      toast: { ...props, id },
+      toast: { ...props, id, key: props.key },
     })
   const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
 
@@ -156,6 +156,7 @@ function toast({ ...props }: Toast) {
     type: "ADD_TOAST",
     toast: {
       ...props,
+      key: props.key,
       id,
       open: true,
       onOpenChange: (open) => {

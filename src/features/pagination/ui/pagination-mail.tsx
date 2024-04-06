@@ -15,18 +15,14 @@ type PaginationMailProps = {
     onSetPage?: (currentPage: number) => void
 }
 
-const getPage = (url: string) => {
-    return url.split('#')
-}
 
 export const PaginationMail: FC<PaginationMailProps> = ({count, onSetPage}) => {
     const {
         setPage,
         pagination,
         countPages,
-    } = usePagination(count)
+    } = usePagination(count, 1)
     const [inputPage, setInputPage] = useState<string>('')
-
 
     const iterationHandlerPage = (type: 'next' | 'prev') => {
         let page = 1
@@ -43,8 +39,7 @@ export const PaginationMail: FC<PaginationMailProps> = ({count, onSetPage}) => {
 
     useEffect(() => {
         const page = parseInt(inputPage)
-        if (page > countPages) return
-
+        if (!page || page > countPages) return
         const debounce = setTimeout(() => onClickPage(page), 1000)
         return () => clearTimeout(debounce)
     }, [inputPage]);
@@ -55,7 +50,10 @@ export const PaginationMail: FC<PaginationMailProps> = ({count, onSetPage}) => {
     }
 
     return (
-        <Pagination>
+        <Pagination className={`flex-wrap gap-4`}>
+            <Input className={`max-w-[70px]`} title={`Введіть сторінку`} placeholder={'1'} value={inputPage}
+                   onChange={parseChange}
+            />
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious
@@ -69,7 +67,10 @@ export const PaginationMail: FC<PaginationMailProps> = ({count, onSetPage}) => {
                             <PaginationItem key={page}>
                                 <PaginationLink
                                     isActive={page === pagination.currentPage}
-                                    onClick={() => onClickPage(page)}
+                                    onClick={() => {
+                                        onClickPage(page)
+                                    }
+                                    }
                                     href={'#'}
                                 >
                                     {page}
@@ -84,11 +85,8 @@ export const PaginationMail: FC<PaginationMailProps> = ({count, onSetPage}) => {
                         href={'#'}
                     />
                 </PaginationItem>
-                <Input className={`max-w-[70px]`} title={`Введіть сторінку`} placeholder={'1'} value={inputPage}
-                       onChange={parseChange}
-                />
 
             </PaginationContent>
-        </Pagination>)
-
+        </Pagination>
+    )
 }

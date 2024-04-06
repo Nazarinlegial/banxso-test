@@ -57,18 +57,16 @@ function Dashboard({params}: DashboardProps) {
                                         <div
                                             className="pt-5 mb-10 mx-auto flex w-full justify-center flex-col space-y-3">
                                             <Skeleton
-                                                className="h-[125px] sm:w-full md:max-w-[1400px] w-[250px] rounded-xl"/>
+                                                className="h-[125px] sm:w-full md:max-w-[1400px] w-[340px] rounded-xl"/>
                                             <div className="space-y-2">
-                                                <Skeleton className="h-4 sm:w-full md:max-w-[1400px] w-[250px]"/>
-                                                <Skeleton className="h-4 sm:w-full md:max-w-[1400px] w-[250px]"/>
+                                                <Skeleton className="h-4 sm:w-full md:max-w-[1400px] w-[340px]"/>
+                                                <Skeleton className="h-4 sm:w-full md:max-w-[1400px] w-[340px]"/>
                                             </div>
                                         </div>
                                     ) : isSuccess && data ? (
                                         <>
                                             <div className={`mb-10`}>
-
-
-                                                <Table className={`mb-10`}>
+                                                <Table>
                                                     <TableCaption>Список ваши останіх повідомлень</TableCaption>
                                                     <TableHeader>
                                                         <TableRow>
@@ -126,7 +124,7 @@ function Dashboard({params}: DashboardProps) {
                                 onValueChange={e => setMailQuery(prevState => ({...prevState, take: parseInt(e)}))}
                                 defaultValue={mailsQuery.take.toString()}
                             >
-                                <SelectTrigger className="w-[150px]">
+                                <SelectTrigger className="w-full max-w-[65px] mb-[20px]">
                                     <SelectValue placeholder="Кількість"/>
                                 </SelectTrigger>
                                 <SelectContent>

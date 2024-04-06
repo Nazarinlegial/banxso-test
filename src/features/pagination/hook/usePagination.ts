@@ -18,7 +18,6 @@ export function usePagination(count: number, currentPage?: number ) {
     })
     const left_right = 1
     useEffect(() => {
-
         const pages = new Set<number>()
         for (let i = Math.max(1, pagination.currentPage - left_right); i <= Math.min(count, pagination.currentPage + left_right ); i++) {
             pages.add(i)

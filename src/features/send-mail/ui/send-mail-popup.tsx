@@ -60,14 +60,15 @@ export default function SendMailPopup({children}: { children: React.ReactNode })
                     if(e instanceof AxiosError) {
                         const messageErrors = e!.response!.data?.errors.details
                         messageErrors.forEach((item:any, i: number) => {
+                            console.log()
                             toast({
                                 title: dayjs().format('ddd HH:mm'),
                                 className: 'mb-3',
-                                key: i,
+                                key: i * Date.now(),
                                 description: item.message,
                                 variant: "destructive",
                                 action: (
-                                    <ToastAction altText={item.message}>Зрозуміло</ToastAction>
+                                    <ToastAction altText={item.message + i}>Зрозуміло</ToastAction>
                                 ),
                             })
                         })

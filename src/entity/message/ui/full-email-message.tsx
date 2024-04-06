@@ -41,8 +41,8 @@ export default function FullEmailMessage({message, onClick, children}: IFullMail
     return (
         <Dialog>
             {children}
-            <DialogContent className={`max-w-[520px] md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1080px] 2xl:max-w-[1320px] w-full`}>
-                <DialogHeader className={`w-full`}>
+            <DialogContent className={`max-w-[520px] text-left md:max-w-[700px] lg:max-w-[900px] xl:max-w-[1080px] 2xl:max-w-[1320px] w-full`}>
+                <DialogHeader className={`w-full text-left` }>
                     <DialogTitle className={`text-base mb-[20px]`}><b
                         className={`text-sm`}>Тема:</b> {message.subject}</DialogTitle>
                     <h3 className={`text-base mb-[20px!important] `}><b
