@@ -11,7 +11,7 @@ export default function Login() {
     return (
         <section className={`mx-auto container w-full min-h-[100vh] flex items-center justify-center `}>
             <SigInButton />
-            <Link href={`/dashboard`}>0</Link>
+            <Link href={`/dashboard`}></Link>
         </section>
     )
 }

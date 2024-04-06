@@ -1,7 +1,6 @@
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {keepPreviousData, useMutation, useQuery} from "@tanstack/react-query";
 import {client} from "@/shared/api/client";
 import {IMailResponse, ISendMailRequest} from "@/entity/message/types";
-import {AxiosError} from "axios";
 
 export const messageKey = ['message', 'mail']
 
@@ -16,9 +15,9 @@ export const useMessages = (query: Record<string, number>) => useQuery({
         } catch (e) {
             throw e
         }
-    }
+    },
+    placeholderData: keepPreviousData
 })
-
 
 export const useMutationSendMessage = () => {
     return useMutation({

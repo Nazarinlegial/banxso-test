@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {Montserrat} from "next/font/google";
 import React from "react";
+import dayjs from "dayjs";
 
 // Підключення шрифтів
 const montserrat = Montserrat({subsets: ["latin"]});
@@ -11,7 +12,9 @@ import "@/shared/style/index.scss"
 // Провайдери
 import {BaseProvider} from "@/_app/providers"
 import {cn} from "@/shared/utils";
-import {IAppContext} from "@/_app/providers/context";
+
+import "dayjs/locale/uk"
+dayjs.locale('uk')
 
 export const metadata: Metadata = {
     title: "Тестовий додаток",

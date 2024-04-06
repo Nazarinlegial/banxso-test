@@ -1,9 +1,10 @@
 'use client'
-import React, {FC, useState} from "react";
+import React, {useState} from "react";
 import {WithProtectedPage} from "@/features/authentication/protected-page";
 import {ROLES} from "@/entity/user/model/user";
 import {AccessTokenListener} from "@/features/authentication/accesstoken-listener";
 import BaseLayout from "@/widgets/layout/base";
+
 import {useMessages} from "@/entity/message/api/messages";
 import {
     Table,
@@ -14,18 +15,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/shared/ui/components/ui/table"
+
 import {Skeleton} from "@/shared/ui/components/ui/skeleton";
-import {CheckIcon, LockIcon} from "lucide-react";
+import {BookOpenIcon, CheckIcon, LockIcon, MailOpenIcon} from "lucide-react";
 import dayjs from "dayjs";
-import {
-    Pagination,
-    PaginationContent, PaginationEllipsis,
-    PaginationItem,
-    PaginationLink, PaginationNext,
-    PaginationPrevious
-} from "@/shared/ui/components/ui/pagination";
 import {FullEmailMessage} from "@/entity/message";
 import {DialogTrigger} from "@/shared/ui/components/ui/dialog";
+import {PaginationMail, usePagination} from "@/features/pagination";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/shared/ui/components/ui/select";
 
 
 type DashboardProps = {
@@ -39,18 +36,8 @@ function Dashboard({params}: DashboardProps) {
     })
     const {isSuccess, data, isLoading} = useMessages(mailsQuery)
 
+
     const handlePage = (page: number) => setMailQuery(prevState => {
-        return {
-            ...prevState,
-            page
-        }
-    })
-
-    const iterationHandlePage = (type: 'next' | 'prev', count: number) => setMailQuery(prevState => {
-        let page = 1
-        if (type === "next") page = mailsQuery.page < count ? mailsQuery.page + 1 : mailsQuery.page
-        if (type === "prev") page = mailsQuery.page > 1 ? mailsQuery.page - 1 : mailsQuery.page
-
         return {
             ...prevState,
             page
@@ -68,7 +55,7 @@ function Dashboard({params}: DashboardProps) {
                                 isLoading
                                     ? (
                                         <div
-                                            className="pt-5 mx-auto flex w-full justify-center flex-col space-y-3">
+                                            className="pt-5 mb-10 mx-auto flex w-full justify-center flex-col space-y-3">
                                             <Skeleton
                                                 className="h-[125px] sm:w-full md:max-w-[1400px] w-[250px] rounded-xl"/>
                                             <div className="space-y-2">
@@ -78,81 +65,82 @@ function Dashboard({params}: DashboardProps) {
                                         </div>
                                     ) : isSuccess && data ? (
                                         <>
-                                            <Table className={`mb-10`}>
-                                                <TableCaption>Список ваши останіх повідомлень</TableCaption>
-                                                <TableHeader>
-                                                    <TableRow>
-                                                        <TableHead className="w-[100px]">Дата</TableHead>
-                                                        <TableHead>Відправник</TableHead>
-                                                        <TableHead>Тема</TableHead>
-                                                        <TableHead align={`center`}
-                                                                   className={`text-center`}>Прочитано</TableHead>
-                                                        <TableHead align={"right"}
-                                                                   className={`text-center`}>Переглянути</TableHead>
+                                            <div className={`mb-10`}>
 
-                                                    </TableRow>
-                                                </TableHeader>
-                                                <TableBody>
-                                                    {data.messages.map((mail, i) => {
-                                                        return (
-                                                            <React.Fragment key={`${mail.conversationId}-${i}`}>
-                                                                <FullEmailMessage message={mail}>
-                                                                    <>
-                                                                        <TableRow>
-                                                                            <TableCell
-                                                                                className="font-light">{dayjs(mail.createdDateTime).format("YYYY-MM-DD HH:mm")}</TableCell>
-                                                                            <TableCell>{mail.sender.emailAddress.address}</TableCell>
-                                                                            <TableCell>{mail.subject}</TableCell>
-                                                                            <TableCell align={`center`}>
-                                                                                {mail.isRead
-                                                                                    ? <CheckIcon className={`w-4 h-4`}/>
-                                                                                    : <LockIcon className={`w-4 h-4`}/>}
-                                                                            </TableCell>
-                                                                            <TableCell align={`center`}>
-                                                                                    <DialogTrigger >
-                                                                                        Детальніше
-                                                                                    </DialogTrigger>
-                                                                            </TableCell>
-                                                                        </TableRow>
-                                                                    </>
-                                                                </FullEmailMessage>
-                                                            </React.Fragment>
-                                                        );
-                                                    })}
 
-                                                </TableBody>
-                                            </Table>
-                                            <Pagination>
-                                                <PaginationContent>
-                                                    <PaginationItem>
-                                                        <PaginationPrevious
-                                                            onClick={() => iterationHandlePage('prev', data.countPage)}
-                                                            href="#prev"/>
-                                                    </PaginationItem>
-                                                    {
-                                                        Array.from({length: data.countPage}, (_, i) => i + 1).map((page, i) => {
+                                                <Table className={`mb-10`}>
+                                                    <TableCaption>Список ваши останіх повідомлень</TableCaption>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHead className="w-[100px]">Дата</TableHead>
+                                                            <TableHead>Відправник</TableHead>
+                                                            <TableHead className={`hidden md:table-cell `}>Тема</TableHead>
+                                                            <TableHead align={`center`} className={`text-center`}>Прочитано</TableHead>
+                                                            <TableHead align={"right"} className={`text-center`}>Переглянути</TableHead>
+
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {data.messages.map((mail, i) => {
                                                             return (
-                                                                <PaginationItem key={page + i}>
-                                                                    <PaginationLink isActive={page === mailsQuery.page}
-                                                                                    onClick={() => handlePage(page)}
-                                                                                    href={`#page=${page}`}>{page}</PaginationLink>
-                                                                </PaginationItem>
-                                                            )
-                                                        })
-                                                    }
-                                                    <PaginationItem>
-                                                        <PaginationEllipsis/>
-                                                    </PaginationItem>
-                                                    <PaginationItem>
-                                                        <PaginationNext
-                                                            onClick={() => iterationHandlePage('next', data.countPage)}
-                                                            href="#next"/>
-                                                    </PaginationItem>
-                                                </PaginationContent>
-                                            </Pagination></>
+                                                                <React.Fragment key={`${mail.conversationId}-${i}`}>
+                                                                    <FullEmailMessage message={mail}>
+                                                                        <>
+                                                                            <TableRow>
+                                                                                <TableCell
+                                                                                    className="font-light">{dayjs(mail.createdDateTime).locale('uk').format("YYYY-MM-DD HH:mm")}</TableCell>
+                                                                                <TableCell>
+                                                                                    <p className={`w-full max-w-[120px] sm:max-w-[210px] truncate md:max-w-none`}>
+                                                                                        {mail.sender.emailAddress.address}
+                                                                                    </p>
+                                                                                    </TableCell>
+                                                                                <TableCell
+                                                                                    className={`hidden md:table-cell`}>{mail.subject}</TableCell>
+                                                                                <TableCell align={`center`}>
+                                                                                    {mail.isRead
+                                                                                        ? <MailOpenIcon
+                                                                                            className={`w-5 h-5 text-teal-500`}/>
+                                                                                        : <LockIcon
+                                                                                            className={`w-5 h-5 text-red-500`}/>}
+                                                                                </TableCell>
+                                                                                <TableCell align={`center`}>
+                                                                                    <DialogTrigger>
+                                                                                        <BookOpenIcon
+                                                                                            className={`w-6 h-6`}/>
+                                                                                    </DialogTrigger>
+                                                                                </TableCell>
+                                                                            </TableRow>
+                                                                        </>
+                                                                    </FullEmailMessage>
+                                                                </React.Fragment>
+                                                            );
+                                                        })}
+                                                    </TableBody>
+                                                </Table>
+                                            </div>
+                                        </>
 
                                     ) : ''
                             }
+                            <Select
+                                onValueChange={e => setMailQuery(prevState => ({...prevState, take: parseInt(e)}))}
+                                defaultValue={mailsQuery.take.toString()}
+                            >
+                                <SelectTrigger className="w-[150px]">
+                                    <SelectValue placeholder="Кількість"/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="5">5</SelectItem>
+                                    <SelectItem value="10">10</SelectItem>
+                                    <SelectItem value="20">20</SelectItem>
+                                    <SelectItem value="35">35</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+
+                            <PaginationMail count={data?.countPage || 1} onSetPage={handlePage}/>
+
+
                         </div>
                     </section>
                 </BaseLayout>

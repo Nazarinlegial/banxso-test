@@ -37,14 +37,14 @@ export default function Header() {
                             </Avatar>
                             {
                                 role === ROLES.user
-                                    ? <Badge className={`h-7 px-4`} variant="outline">{ROLES_NAME[role]}</Badge>
-                                    : <Badge variant="destructive">{ROLES_NAME[role]}</Badge>
+                                    ? <Badge className={`h-8 px-4`} variant="outline">{ROLES_NAME[role]}</Badge>
+                                    : <Badge className={`h-8 px-4`} variant="destructive">{ROLES_NAME[role]}</Badge>
                             }
                             {
                                 role === ROLES.admin
                                 && (
                                     <SendMailPopup>
-                                        <Button variant={`destructive`}>Надіслати Email</Button>
+                                        <Button variant={`secondary`} size={`sm`}>Надіслати Email</Button>
                                     </SendMailPopup>
                                 )
 

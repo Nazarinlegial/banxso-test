@@ -4,7 +4,6 @@ import {Button} from "@/shared/ui/components/ui/button"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -51,7 +50,11 @@ export default function SendMailPopup({children}: { children: React.ReactNode })
                             <ToastAction altText="Зрозуміло">Зрозуміло</ToastAction>
                         ),
                     })
-                    setFormState({} as ISendMailRequest)
+                    setFormState({
+                        recipient_mail: "",
+                        body: "",
+                        subject: ""
+                    } as ISendMailRequest)
                 },
                 onError: (e) => {
                     if(e instanceof AxiosError) {
@@ -106,7 +109,6 @@ export default function SendMailPopup({children}: { children: React.ReactNode })
                         </Label>
                         <Textarea id={`body`} placeholder={`Текст...`} value={formState.body} className={`col-span-3 min-h-[300px]`}
                                   onChange={(e) => updateState({body: e.target.value})}>
-
                         </Textarea>
                     </div>
                 </div>

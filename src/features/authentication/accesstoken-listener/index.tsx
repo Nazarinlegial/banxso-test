@@ -2,7 +2,6 @@
 import {useRouter, useSearchParams, usePathname} from "next/navigation";
 import {useEffect} from "react";
 import {setHeaderToken} from "@/shared/api/client";
-import {router} from "next/client";
 import {useAppContext} from "@/_app/providers";
 import {jwtDecode} from "jwt-decode";
 import {IUserPayload} from "@/entity/user/types";
